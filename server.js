@@ -1,12 +1,13 @@
-const express = require("express");
-const multer = require("multer");
-const XLSX = require("xlsx");
+import express from 'express';
+import multer from 'multer';
+import XLSX from 'xlsx';
+
 const app = express();
 const upload = multer();
 
-app.post("/convert", upload.single("file"), (req, res) => {
+app.post('/convert', upload.single('file'), (req, res) => {
   try {
-    const workbook = XLSX.read(req.file.buffer, { type: "buffer" });
+    const workbook = XLSX.read(req.file.buffer, { type: 'buffer' });
 
     const result = workbook.SheetNames.map((name) => ({
       sheetName: name,
@@ -19,8 +20,8 @@ app.post("/convert", upload.single("file"), (req, res) => {
   }
 });
 
-app.get("/", (req, res) => {
-  res.send("Excel to JSON API ✅");
+app.get('/', (req, res) => {
+  res.send('Excel to JSON API ✅');
 });
 
 const PORT = process.env.PORT || 3000;
